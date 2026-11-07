@@ -1,0 +1,11 @@
+**/__pycache__
+**/*.pyc
+**/.venv
+**/node_modules
+frontend/dist
+config
+cache
+recordings
+.git
+.claude
+*.md

@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "recordviewer-dev",
+      "runtimeExecutable": "C:/Users/matej-pc/AppData/Local/Temp/claude/E--Nextcloud-04-Workspace-RecordViewer-Claude/ea5b9ff9-1a7f-4b15-9e47-ceb2ec79b1da/scratchpad/venv/Scripts/python.exe",
+      "runtimeArgs": [
+        "-B",
+        "C:/Users/matej-pc/AppData/Local/Temp/claude/E--Nextcloud-04-Workspace-RecordViewer-Claude/ea5b9ff9-1a7f-4b15-9e47-ceb2ec79b1da/scratchpad/dev_server.py",
+        "E:/Nextcloud/04-Workspace/RecordViewer-Claude/backend"
+      ],
+      "port": 8765
+    }
+  ]
+}
