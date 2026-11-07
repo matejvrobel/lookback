@@ -7,3 +7,4 @@ config/
 cache/
 recordings/
 .env
+dev/

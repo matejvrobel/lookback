@@ -15,7 +15,7 @@ DEFAULT_TIMESTAMP_PATTERNS = [
 
 
 class GeneralSettings(BaseModel):
-    instance_name: str = "RecordViewer"
+    instance_name: str = "Lookback"
     timezone: str = Field(default_factory=lambda: os.environ.get("TZ") or "UTC")
 
     @field_validator("timezone")

@@ -142,18 +142,26 @@ async def generate_thumbnail(
 async def generate_sprite(
     ffmpeg_path: str, source: str, target: Path, interval: float, count: int, width: int, quality: int
 ) -> str | None:
-    """Writes a 1-row sprite of `count` frames, one every `interval` seconds, decoding keyframes only."""
-    return await _render_image(
-        [
-            ffmpeg_path, "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
-            "-skip_frame", "nokey", "-i", source,
-            "-an", "-sn", "-frames:v", "1",
-            "-vf", f"fps=1/{interval:.3f},scale={width}:-2,tile={count}x1",
-            "-q:v", str(quality), "-update", "1",
-        ],
-        target,
-        timeout=300,
-    )
+    """Writes a 1-row sprite of `count` frames, one every `interval` seconds.
+
+    Decodes keyframes only for speed and falls back to a full decode for files with sparse keyframes.
+    """
+    error = None
+    for decode_args in (["-skip_frame", "nokey"], []):
+        error = await _render_image(
+            [
+                ffmpeg_path, "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+                *decode_args, "-i", source,
+                "-an", "-sn", "-frames:v", "1",
+                "-vf", f"fps=1/{interval:.3f},scale={width}:-2,tile={count}x1",
+                "-q:v", str(quality), "-update", "1",
+            ],
+            target,
+            timeout=300,
+        )
+        if error is None:
+            return None
+    return error
 
 
 def _to_float(value) -> float | None:

@@ -11,7 +11,7 @@ from app.frontend import mount_frontend
 from app.runtime import task_manager
 from app.services.settings_store import settings_store
 
-log = logging.getLogger("recordviewer")
+log = logging.getLogger("lookback")
 
 
 @asynccontextmanager
@@ -26,7 +26,7 @@ async def lifespan(_: FastAPI):
     async with SessionLocal() as session:
         await settings_store.load(session)
     await task_manager.start()
-    log.info("RecordViewer %s started", __version__)
+    log.info("Lookback %s started", __version__)
     try:
         yield
     finally:
@@ -34,7 +34,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(
-    title="RecordViewer",
+    title="Lookback",
     version=__version__,
     lifespan=lifespan,
     docs_url="/api/docs",

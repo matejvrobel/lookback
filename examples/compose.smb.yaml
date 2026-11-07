@@ -1,0 +1,26 @@
+services:
+  lookback:
+    image: ghcr.io/matejvrobel/lookback:latest
+    container_name: lookback
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-UTC}
+    ports:
+      - "${PORT:-8765}:8765"
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - recordings:/recordings:ro
+    # Uncomment for VAAPI / Quick Sync hardware transcoding, then pick it in Settings > Playback
+    # devices:
+    #   - /dev/dri:/dev/dri
+
+volumes:
+  recordings:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: "//${SMB_HOST}/${SMB_SHARE}"
+      o: "addr=${SMB_HOST},username=${SMB_USER},password=${SMB_PASS},vers=${SMB_VERSION:-3.0},ro,uid=${PUID:-1000},gid=${PGID:-1000}"

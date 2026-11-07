@@ -43,5 +43,5 @@ export const router = createRouter({
 
 router.afterEach((to) => {
   const title = typeof to.meta.title === 'string' ? to.meta.title : null
-  document.title = title ? `${title} - RecordViewer` : 'RecordViewer'
+  document.title = title ? `${title} - Lookback` : 'Lookback'
 })

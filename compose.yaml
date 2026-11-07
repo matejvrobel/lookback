@@ -1,0 +1,18 @@
+services:
+  lookback:
+    image: ghcr.io/matejvrobel/lookback:latest
+    container_name: lookback
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-UTC}
+    ports:
+      - "${PORT:-8765}:8765"
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - ${RECORDINGS_PATH:-./recordings}:/recordings:ro
+    # Uncomment for VAAPI / Quick Sync hardware transcoding, then pick it in Settings > Playback
+    # devices:
+    #   - /dev/dri:/dev/dri

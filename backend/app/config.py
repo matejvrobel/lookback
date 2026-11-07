@@ -5,9 +5,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Environment(BaseSettings):
-    """Bootstrap settings from RV_* environment variables. Everything else lives in the database."""
+    """Bootstrap settings from LOOKBACK_* environment variables. Everything else lives in the database."""
 
-    model_config = SettingsConfigDict(env_prefix="RV_")
+    model_config = SettingsConfigDict(env_prefix="LOOKBACK_")
 
     config_dir: Path = Path("/config")
     media_dir: Path = Path("/recordings")
@@ -17,7 +17,7 @@ class Environment(BaseSettings):
 
     @property
     def db_path(self) -> Path:
-        return self.config_dir / "recordviewer.db"
+        return self.config_dir / "lookback.db"
 
     @property
     def thumbs_dir(self) -> Path:

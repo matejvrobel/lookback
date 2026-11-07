@@ -46,7 +46,8 @@ async def prepare_playback(recording: RecordingDep) -> dict:
     return {"method": method}
 
 
-@router.api_route("/{recording_id}/file", methods=["GET", "HEAD"], name="recording_file")
+@router.get("/{recording_id}/file", name="recording_file")
+@router.head("/{recording_id}/file", include_in_schema=False)
 async def recording_file(recording: RecordingDep, request: Request, download: bool = False) -> Response:
     if not os.path.isfile(recording.path):
         raise HTTPException(404, "File no longer exists on disk")
@@ -60,7 +61,8 @@ async def recording_file(recording: RecordingDep, request: Request, download: bo
     )
 
 
-@router.api_route("/{recording_id}/remux.mp4", methods=["GET", "HEAD"], name="recording_remux")
+@router.get("/{recording_id}/remux.mp4", name="recording_remux")
+@router.head("/{recording_id}/remux.mp4", include_in_schema=False)
 async def recording_remux(recording: RecordingDep, request: Request) -> Response:
     try:
         path = await remux_cache.ensure(recording, settings_store.current)

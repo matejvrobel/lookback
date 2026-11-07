@@ -7,5 +7,7 @@ config
 cache
 recordings
 .git
+.github
 .claude
 *.md
+compose*.yaml

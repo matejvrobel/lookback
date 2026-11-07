@@ -14,7 +14,7 @@ const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
 let statusTimer: number | undefined
 
 const theme = computed(() => settingsStore.settings?.ui.theme ?? 'dark')
-const instanceName = computed(() => settingsStore.settings?.general.instance_name || 'RecordViewer')
+const instanceName = computed(() => settingsStore.settings?.general.instance_name || 'Lookback')
 
 function applyTheme() {
   const dark = theme.value === 'dark' || (theme.value === 'system' && darkQuery.matches)
